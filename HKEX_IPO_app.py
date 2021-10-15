@@ -289,8 +289,14 @@ df2 = df [['Listing Date▼', '% Chg. on2Debut▼', 'Name',"0 Trading Days",	"80
 df2 ['Listing Date▼'] = df ['Listing Date▼'].dt.strftime('%Y-%m-%d')
 df2 = df2.set_index('Listing Date▼')
 df2 = df2.rename(columns={'% Chg. on2Debut▼': 'Chg.Debut'})
-#s = df2.style.format(formatter = {('Chg.Debut',"0 Trading Days","80 Trading Days","100 Trading Days","120 Trading Days","140 Trading Days"):'{:,.2%}'.format})
-s = df2[['Chg.Debut',"0 Trading Days","80 Trading Days","100 Trading Days","120 Trading Days","140 Trading Days"]].apply(lambda x: map(lambda x:'{:.2f}%'.format(x),x),axis=1)
+s = df2.style.format(formatter = {'Chg.Debut':'{:,.2%}'.format,
+                                 "0 Trading Days":'{:,.2%}'.format,
+                                 "80 Trading Days":'{:,.2%}'.format,
+                                 "100 Trading Days":'{:,.2%}'.format,
+                                 "120 Trading Days":'{:,.2%}'.format,
+                                 "140 Trading Days":'{:,.2%}'.format,
+                                 })
+
 s
 
 #### to gather details of a company
