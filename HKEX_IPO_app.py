@@ -290,7 +290,7 @@ df2 ['Listing Date▼'] = df ['Listing Date▼'].dt.strftime('%Y-%m-%d')
 df2 = df2.set_index('Listing Date▼')
 df2 = df2.rename(columns={'% Chg. on2Debut▼': 'Chg.Debut'})
 s = df2.style.format({
-    ('Chg.Debut',"0 Trading Days",	"80 Trading Days",	"100 Trading Days",	"120 Trading Days",	"140 Trading Days"): '{:,.2%}'.format})
+    ('Chg.Debut',"0 Trading Days",	"80 Trading Days",	"100 Trading Days",	"120 Trading Days",	"140 Trading Days"): lambda x:'{:,.2%}'.format})
 s
 
 #### to gather details of a company
