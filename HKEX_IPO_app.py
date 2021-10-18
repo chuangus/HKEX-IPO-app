@@ -351,19 +351,18 @@ df2 = df2.rename(columns={'% Chg. on2Debut▼': 'Chg.Debut'})
 s = df2.style.format({
     'Chg.Debut': '{:,.2%}'.format})
 s
-column_1, column_2 = st.columns(2) ### Divides page into 2 columns
-with column_1:### Make trading chart smaller
-    df2 = df [['Listing Date▼', 'Name',"0 Trading Days",	"80 Trading Days",	"100 Trading Days",	"120 Trading Days", "-1 Trading Days" ]] ### gathers relevant data
-    df2 ['Listing Date▼'] = df ['Listing Date▼'].dt.strftime('%Y-%m-%d')
-    df2 = df2.set_index('Listing Date▼')
-    df2 = df2.rename(columns={'% Chg. on2Debut▼': 'Chg.Debut'})
-    s = df2.style.format(formatter = {"0 Trading Days":'{:,.2%}'.format,
-                                      "80 Trading Days":'{:,.2%}'.format,
-                                      "100 Trading Days":'{:,.2%}'.format,
-                                      "120 Trading Days":'{:,.2%}'.format,
-                                      "-1 Trading Days":'{:,.2%}'.format
-                                      })
-    s
+
+df2 = df [['Listing Date▼', 'Name',"0 Trading Days",	"80 Trading Days",	"100 Trading Days",	"120 Trading Days", "-1 Trading Days" ]] ### gathers relevant data
+df2 ['Listing Date▼'] = df ['Listing Date▼'].dt.strftime('%Y-%m-%d')
+df2 = df2.set_index('Listing Date▼')
+df2 = df2.rename(columns={'% Chg. on2Debut▼': 'Chg.Debut'})
+s = df2.style.format(formatter = {"0 Trading Days":'{:,.2%}'.format,
+                                  "80 Trading Days":'{:,.2%}'.format,
+                                  "100 Trading Days":'{:,.2%}'.format,
+                                  "120 Trading Days":'{:,.2%}'.format,
+                                  "-1 Trading Days":'{:,.2%}'.format
+                                  })
+s
 #### to gather details of a company
 comapnies = df2 ['Name']
 company = st.selectbox(
