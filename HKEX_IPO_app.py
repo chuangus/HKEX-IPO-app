@@ -21,7 +21,7 @@ st.title('HKEX IPO Performance')
 
 df = pd.read_excel(r'RawData.xlsx', header = 0, engine = 'openpyxl', parse_dates = False)
 df_export = df
-df = df.loc[df['Count as IPO? '] == 1] ### Filters rows where it is actually an IPO
+df = df.loc[df['Count as IPO?'] == 1] ### Filters rows where it is actually an IPO
 df['Listing Date▼']= pd.to_datetime(df['Listing Date▼'])### converts listing date to datetime variable
 
 ### create dropdown selector
