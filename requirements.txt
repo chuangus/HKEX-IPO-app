@@ -6,3 +6,4 @@ scipy
 streamlit
 investpy
 openpyxl
+yfinance
