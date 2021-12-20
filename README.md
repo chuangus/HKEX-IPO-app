@@ -1,4 +1,7 @@
 # HKEX-IPO-app
+
+[![scraper-ipo-updater](https://github.com/epiphronquant/HKEX-IPO-app/actions/workflows/main.yml/badge.svg)](https://github.com/epiphronquant/HKEX-IPO-app/actions/workflows/main.yml)
+
 ### Press link to use APP https://share.streamlit.io/epiphronquant/hkex-ipo-app/main/HKEX_IPO_app.py
 
 This app displays data generated from https://www.kaggle.com/quantepiphron/ipo-data-updater which scrapes raw data from http://www.aastocks.com/en/stocks/market/ipo/mainpage.aspx set of pages and then uses Yahoo Finance and Investing.com data for calculating returns post IPO. Yahoo Finance data tends to colloborate with AA stocks data when *actual IPOs are counted as IPOs. 
