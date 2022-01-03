@@ -10,13 +10,13 @@ This app visualizes HKEX IPO data from 2018 onwards for healthcare stocks and 20
 1. Relistings, spinoff of listed company, secondary listing, issuance of additional shares of a listed company are NOT considered IPOs.*
 2. When computing returns, we use close data rather than adjusted close. Thus the return does not reflect dividends but reflects stock splits/merge.
 3. There will be no major changes in AA stock's page layout and URL for the auto updater to work.
-4. Delisted stocks have no data beyond first day IPO return.
+4. Delisted stocks have no data beyond first day IPO return and is not reflected on returns.
 
 **Data Sources**
 
-1. _AA Stocks_: http://www.aastocks.com/en/stocks/market/ipo/mainpage.aspx set of pages from January 1st, 2019 onwards. Columns A-E and I-Z 
-2. _HKEX_: From January 1st, 2018 to December 31st, 2018, healthcare IPOs was added in manually using their prospectus. Columns A-E and I-Z
-3. _Investing.com_: Hang Seng Healthcare Index Data. Columns AR-AY
+1. _AA Stocks_: http://www.aastocks.com/en/stocks/market/ipo/mainpage.aspx set of pages from January 1st, 2019 onwards. Columns A-E and I-Z.
+2. _HKEX_: From January 1st, 2018 to December 31st, 2018, healthcare IPOs was added in manually using their prospectus. Columns A-E and I-Z.
+3. _Investing.com_: Hang Seng Healthcare Index Data. Columns AR-AY.
 4. _Yahoo Finance_: Columns F-H and AA - AQ.
 
 **Description**
