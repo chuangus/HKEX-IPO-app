@@ -19,7 +19,7 @@ This app visualizes HKEX IPO data from 2018 onwards for healthcare stocks and 20
 
 **Description**
 
-The charts visually reflect research by Professor Jay Ritter on the American exchanges https://site.warrington.ufl.edu/ritter/ipo-data/internal and corresponding research conducted by Epiphron Capital on the HKEX. These charts show 
+The charts visually reflect research by Professor Jay Ritter on the American exchanges https://site.warrington.ufl.edu/ritter/ipo-data/ and corresponding research conducted by Epiphron Capital on the HKEX. These charts show 
 1. The right tail distribution of IPO returns which reflects IPO underpricing.
 2. Larger lead underwriters underprice more (Goldman Sachs, Morgan Stanley, Merril Lynch etc.)
       a. Primary western lead underwriters working with a secondary Chinese Lead underwriter would more consistently underprice an offering
