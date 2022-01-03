@@ -4,7 +4,12 @@
 
 ### Press link to use APP https://share.streamlit.io/epiphronquant/hkex-ipo-app/main/HKEX_IPO_app.py
 
-This app visualizes HKEX IPO data from 2018 onwards for healthcare stocks and 2019 onwards for all stocks. It gets updated automatically every Sunday noon Hong Kong time.
+This app visualizes HKEX IPO data from 2018 onwards for healthcare stocks and 2019 onwards for all stocks. It gets updated automatically every Sunday noon, Hong Kong time.
+
+**Key Assumptions**
+1. Relistings, Spinoff of listed company, Secondary Listing, Additional shares of a listed company are NOT considered IPOs.*
+2. When computing returns, we use close data rather than adjusted close. Thus the return does not reflect dividends but reflects stock splits/merge.
+3. There will be no major changes in AA stock's page layout and URL for the auto updater to work.
 
 **Data Sources**
 
@@ -13,6 +18,7 @@ This app visualizes HKEX IPO data from 2018 onwards for healthcare stocks and 20
 3. _Investing.com_: Hang Seng Healthcare Index Data
 
 **Description**
+
 The charts visually reflect research by Professor Jay Ritter on the American exchanges https://site.warrington.ufl.edu/ritter/ipo-data/internal and corresponding research conducted by Epiphron Capital on the HKEX. These charts show 
 1. The right tail distribution of IPO returns which reflects IPO underpricing.
 2. Larger lead underwriters underprice more (Goldman Sachs, Morgan Stanley, Merril Lynch etc.)
@@ -22,4 +28,4 @@ The charts visually reflect research by Professor Jay Ritter on the American exc
 
 Change on debut is the 1st day close price / offer price -1. We use simple returns which is (Value t=1) / (Value t=0) -1. 
 
-*We manually adjust IPOs as ones that aren't secondary listings, add on listings or spinoffs. The automatic update function assumes that it is an IPO if the name doesn't end in -S. There are no SPACs yet on the Hong Kong Stock Exchange and we wouldn't count them as IPOs.
+*The automatic update function assumes that it is an IPO if the name doesn't end in -S. Data needs to be updated manually to ensure than only IPOs are counted. There are no SPACs yet on the Hong Kong Stock Exchange and we wouldn't count them as IPOs.
