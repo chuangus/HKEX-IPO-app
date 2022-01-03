@@ -29,3 +29,6 @@ The charts visually reflect research by Professor Jay Ritter on the American exc
 Change on debut is the 1st day close price / offer price -1. We use simple returns which is (Value t=1) / (Value t=0) -1. 
 
 *The automatic update function assumes that it is an IPO if the name doesn't end in -S. Data needs to be updated manually to ensure than only IPOs are counted. There are no SPACs yet on the Hong Kong Stock Exchange and we wouldn't count them as IPOs.
+
+**Visualization of the Auto-Updater**
+![image](https://user-images.githubusercontent.com/91112822/147905324-6e427c8d-bd1e-4ad6-be9b-dff044419296.png)
