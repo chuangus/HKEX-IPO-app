@@ -9,9 +9,10 @@ This app visualizes HKEX IPO data from 2018 onwards for healthcare stocks and 20
 **Data Sources**
 
 1. _AA Stocks_: http://www.aastocks.com/en/stocks/market/ipo/mainpage.aspx set of pages from January 1st, 2019 onwards. 
-2. _HKEX_: From January 1st, 2018 to December 31st, 2018, healthcare IPOs was added in manually.
-3. _Investing.com_: Hang Seng Healthcare Data
+2. _HKEX_: From January 1st, 2018 to December 31st, 2018, healthcare IPOs was added in manually using their prospectus.
+3. _Investing.com_: Hang Seng Healthcare Index Data
 
+**Description**
 The charts visually reflect research by Professor Jay Ritter on the American exchanges https://site.warrington.ufl.edu/ritter/ipo-data/internal and corresponding research conducted by Epiphron Capital on the HKEX. These charts show 
 1. The right tail distribution of IPO returns which reflects IPO underpricing.
 2. Larger lead underwriters underprice more (Goldman Sachs, Morgan Stanley, Merril Lynch etc.)
