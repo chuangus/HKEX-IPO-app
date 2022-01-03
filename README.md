@@ -7,7 +7,7 @@
 This app visualizes HKEX IPO data from 2018 onwards for healthcare stocks and 2019 onwards for all stocks. It gets updated automatically every Sunday noon, Hong Kong time.
 
 **Key Assumptions**
-1. Relistings, Spinoff of listed company, Secondary Listing, Additional shares of a listed company are NOT considered IPOs.*
+1. Relistings, spinoff of listed company, secondary listing, issuance of additional shares of a listed company are NOT considered IPOs.*
 2. When computing returns, we use close data rather than adjusted close. Thus the return does not reflect dividends but reflects stock splits/merge.
 3. There will be no major changes in AA stock's page layout and URL for the auto updater to work.
 4. Delisted stocks have no data beyond first day IPO return.
