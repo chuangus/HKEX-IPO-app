@@ -6,24 +6,23 @@ import yfinance as yf
 import investpy
 import numpy as np
 
-
 df_main = pd.read_excel(r'RawData.xlsx')
 
-### Gather data from IPO
+### Gather data & clean from IPO
 page="http://www.aastocks.com/en/stocks/market/ipo/listedipo.aspx?s=3&o=0&page=" + str (1)
 
 dfs = pd.read_html(page)
 df = dfs [16]
 df = df [:-3]
 df = df.iloc [:,1:]
-df2 = df ['Name▼ / Code▼']
+df2 = df ['Name▼ / Code▼']
 df2 = df2.map(lambda x: x.rstrip('Sink Below Listing Price'))
 df_code = df2.map(lambda x: x[-7:])
 df_name =  df2.map(lambda x: x[:-8])
 
-df ['Name▼ / Code▼'] = df_code
+df ['Name▼ / Code▼'] = df_code
 df.insert(0, 'Name', df_name)
-df = df.rename(columns = {'Name▼ / Code▼':'Code'})
+df = df.rename(columns = {'Name▼ / Code▼':'Code'})
 df_IPO = df[~df['Code'].isin(df_main['Code'])]
 
 ### Gather sponsor data
@@ -31,15 +30,14 @@ page= 'http://www.aastocks.com/en/stocks/market/ipo/sponsor.aspx?s=1&o=0&s2=0&o2
 dfs = pd.read_html(page)
 df = dfs [17]
 df = df.iloc[:-2,0:7]
-df ['Name▼ / Code▼'] = df_code
+df ['Name▼ / Code▼'] = df_code
 df.insert(0, 'Name', df_name)
-df = df.rename(columns = {'Name▼ / Code▼':'Code'})
+df = df.rename(columns = {'Name▼ / Code▼':'Code'})
 df_sponsor = df[df['Code'].isin(df_IPO['Code'])]
 df_sponsor = df_sponsor.drop(columns = ['Name/Code', 'List Date', 'Acc. % Chg.▼', '% Chg. onDebut1▼', 'Name' ],axis = 1)
 
 ### merge newly gathered data
 df_new = df_IPO.merge(df_sponsor, on = ['Code'], how = 'left')
-
 df_new = df_new.rename( columns={'Industry':'AA Stocks Industry'})
 
 def cleanpercent (df_main, column):
@@ -74,7 +72,7 @@ df8 = pd.DataFrame(df8, columns=['Industry', 'Sector', 'Business Summary', 'Code
 ### merge newly gathered data
 df_new = df_new.merge(df8, on = ['Code'], how = 'left')
 
-### get new Leads data
+### clean new Leads data
 df2 = df_new['Sponsor'].str.replace(', Limited', ' Limited,', regex=True)
 df2 = df2.str.split (',', expand = True)
 
@@ -142,7 +140,6 @@ df_new = df_new.iloc [::-1]
 ## concat new data with old data
 df_main = pd.concat([df_main,df_new], axis=0)
 
-
 ## gather yahoo trading data and calculating return
     ### initialize data
 df2 = df_main ['Code']
@@ -164,8 +161,6 @@ df_trading8 = []
 df_HSI8 = []
 df_HSH8 =[]
 
-
-
 df2 = df2.values.tolist()
 df3 = yf.download(df2, period="max")  ['Close'] 
 
@@ -173,8 +168,7 @@ def calc_data (init_df,date_df,trading_days):
     df_HSI = []
     for day in trading_days:
         try:
-            df_day = date_df[day]
-            
+            df_day = date_df[day]            
         except (IndexError, TypeError):
             df_day = 'NAN'     
         df_HSI.append(df_day)
@@ -186,7 +180,7 @@ for ticker in df2:
     df4 = df4.dropna()    
     start_date = df_date.loc [ticker] ### use listing date from AA stocks
     start_date = start_date.values[0]
-    trading_days = [0, -1, 80, 100, 120, 140, 160, 252, 372] #!!! THIS CAN BE ADJUSTED AS NECESSARY but others need to be adjusted if different from 9 variables!!!!###
+    trading_days = [0, -1, 80, 100, 120, 140, 160, 252, 372] ###! THIS CAN BE ADJUSTED AS NECESSARY but others need to be adjusted if different from 9 variables
 
     try:
         end_date = df4.index [-1]
@@ -197,8 +191,7 @@ for ticker in df2:
     
             ### filtering by date for investpy
         end_dateinv = df_invest.index [-1]
-        df6 = df_invest.loc[start_date:end_dateinv]
-     
+        df6 = df_invest.loc[start_date:end_dateinv]     
     except IndexError:
         df5 = np.NAN
         df4 = np.NAN
@@ -232,7 +225,6 @@ df_listprice = df_listprice.reset_index(drop=True)
 df_listprice = df_listprice.astype(float)
 
 df_code = df8 ['Code']
-
     #Trading return: dividing returns by list price. Need to review some Matrix Division hahaha
 def ret (numerator,denominator,code):
     """ 
@@ -242,9 +234,7 @@ def ret (numerator,denominator,code):
     df_tradingret = df_tradingret.T
     df_tradingret = pd.concat ([df_tradingret, code], axis=1)
     return df_tradingret
-
 df_tradingret = ret(df_trading, df_listprice, df_code)
-
     # Index return: divide HSI by rest of column
 df_HSIPO = df_HSI.iloc [:,0]
 df_HSI = df_HSI.iloc[:,1:]
@@ -269,7 +259,6 @@ df_main = df_main.merge(df_yfret, on = ['Code'], how = 'left')
 df_main = pd.concat ([df_main, df_end], axis=1)
 
 ### cleaning df_main
-
 df_main ['Listing Price'] = df_main ['Listing Price'].astype (str)
 df_main ['Listing Price'] = df_main ['Listing Price'].astype (float)
 
@@ -288,7 +277,6 @@ df_main ['Listing Date▼'] = df_main ['Listing Date▼'].astype (str)
 df_main ['Listing Date▼'] = df_main ['Listing Date▼'].str.replace (' 00:00:00','', regex = True)
 
     ## removing discrepancy and calculating new discrepancy
-
 discrepancy = abs(df_main ['% Chg. on2Debut▼'] - df_main['0 Trading Days'])
 discrepancy = discrepancy.round(2)
 df_main ['Discrepancy'] = discrepancy
