@@ -3,6 +3,7 @@
 [![scraper-ipo-updater](https://github.com/epiphronquant/HKEX-IPO-app/actions/workflows/main.yml/badge.svg)](https://github.com/epiphronquant/HKEX-IPO-app/actions/workflows/main.yml)
 
 Follow link to access the app
+
 https://share.streamlit.io/epiphronquant/hkex-ipo-app/main/HKEX_IPO_app.py
 
 This app visualizes HKEX IPO data from 2018 onwards for healthcare stocks and 2019 onwards for all stocks. It gets updated automatically every Sunday noon, Hong Kong time.
