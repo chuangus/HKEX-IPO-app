@@ -35,5 +35,8 @@ Change on debut is the (1st day close price) / (offer price) -1. We use simple r
 
 *The automatic update function assumes that it is an IPO if the name doesn't end in -S. Data needs to be updated manually to ensure than only IPOs are counted. There are no SPACs yet on the Hong Kong Stock Exchange and we wouldn't count them as IPOs.
 
-**Visualization of ipo-data-updater**
+**Visualization of ipo-data-updater process**
 ![image](https://user-images.githubusercontent.com/91112822/148018543-62c689b0-b559-40f1-907c-ab1bfeb05427.png)
+
+**Chart by Chart Explanation**
+**1. 
