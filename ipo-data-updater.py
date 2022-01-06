@@ -7,7 +7,7 @@ import investpy
 import numpy as np
 
 df_main = pd.read_excel(r'RawData.xlsx')
-
+df_main = df_main [:-1] #remove last row so that data is able to update even when there are no new rows
 ### Gather data & clean from IPO
 page="http://www.aastocks.com/en/stocks/market/ipo/listedipo.aspx?s=3&o=0&page=" + str (1)
 
