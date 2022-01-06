@@ -14,6 +14,7 @@ This app visualizes HKEX IPO data from 2018 onwards for healthcare stocks and 20
 3. When computing returns, we use close data rather than adjusted close. Thus the return does not reflect dividends but reflects stock splits/merge.
 4. Returns gets updated every Sunday noon, Hong Kong time. This means they would use Friday's/last trading day's close data.
 5. There will be no major changes in AA stock's page layout and URL for the auto updater to work.
+6. Data Sources are accurate
 
 **Data Sources**
 
