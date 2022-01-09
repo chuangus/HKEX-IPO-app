@@ -16,7 +16,7 @@ df = dfs [16]
 df = df [:-3]
 df = df.iloc [:,1:]
 print(df)
-df2 = df [' Name▼ / Code▼']
+df2 = df ['Name▼ / Code▼']
 df2 = df2.map(lambda x: x.rstrip('Sink Below Listing Price'))
 df_code = df2.map(lambda x: x[-7:])
 df_name =  df2.map(lambda x: x[:-8])
