@@ -6,7 +6,7 @@ Follow link to access the app
 
 https://share.streamlit.io/epiphronquant/hkex-ipo-app/main/HKEX_IPO_app.py
 
-This app visualizes HKEX IPO data from 2018 onwards for healthcare stocks and 2019 onwards for all stocks. It gets updated automatically every Sunday noon, Hong Kong time.
+This app visualizes HKEX IPO data from 2018 onwards for healthcare stocks and 2019 onwards for all stocks. It gets updated automatically every Sunday 8am, Hong Kong time.
 
 **Key Assumptions**
 1. Relistings, spinoff of listed company, secondary listing, issuance of additional shares of a listed company are NOT considered IPOs.*
