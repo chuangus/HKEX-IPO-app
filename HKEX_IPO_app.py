@@ -22,7 +22,7 @@ st.set_page_config(layout="wide")
 st.title('HKEX IPO Performance')
 st.write ('All assumptions and further info can be found in [documentation](https://github.com/epiphronquant/HKEX-IPO-app)')
 
-df = pd.read_excel(r'C:\Users\angus\OneDrive - epiphroncapital.com\文件\Research\Streamlit Apps\IPO Streamlit Update\RawData.xlsx', header = 0, engine = 'openpyxl', parse_dates = False)
+df = pd.read_excel(r'RawData.xlsx', header = 0, engine = 'openpyxl', parse_dates = False)
 df_export = df
 df = df.loc[df['Count as IPO?'] == 1] ### Filters rows where it is actually an IPO
 df['Listing Date▼']= pd.to_datetime(df['Listing Date▼'])### converts listing date to datetime variable
