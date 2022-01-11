@@ -13,6 +13,8 @@ import plotly.express as px
 import numpy as np
 import investpy
 import base64
+import yfinance as yf
+import datetime as dt
 from io import BytesIO
 
 st.set_page_config(layout="wide")
@@ -20,7 +22,7 @@ st.set_page_config(layout="wide")
 st.title('HKEX IPO Performance')
 st.write ('All assumptions and further info can be found in [documentation](https://github.com/epiphronquant/HKEX-IPO-app)')
 
-df = pd.read_excel(r'RawData.xlsx', header = 0, engine = 'openpyxl', parse_dates = False)
+df = pd.read_excel(r'C:\Users\angus\OneDrive - epiphroncapital.com\文件\Research\Streamlit Apps\IPO Streamlit Update\RawData.xlsx', header = 0, engine = 'openpyxl', parse_dates = False)
 df_export = df
 df = df.loc[df['Count as IPO?'] == 1] ### Filters rows where it is actually an IPO
 df['Listing Date▼']= pd.to_datetime(df['Listing Date▼'])### converts listing date to datetime variable
@@ -185,22 +187,35 @@ b = b['% Chg. on2Debut▼'].to_list()
 fig = lead_chart(industries, a, b,"Lead 1 & 2 Deal Count and "+ select_central+" First Day Return" )
 st.plotly_chart(fig, use_container_width=True)
 
-### Chart showing first day return performance over time with HSH and HSI
-fdayret = df [['Listing Date▼','% Chg. on2Debut▼']]
-if select_central == 'Average':
-    a = fdayret.groupby(['Listing Date▼']).mean()
-
-else:
-    a = fdayret.groupby(['Listing Date▼']).median()
-
-fig = make_subplots(specs=[[{"secondary_y": True}]])
-
-
-    #add a box to select HSI or HSH as second axis
-index = st.selectbox(
-    'Which index would you like to compare it to?',
-      ['Hang Seng Healthcare', 'Hang Seng Index'])
-'You selected: ', index
+column_1, column_2 = st.columns(2) ### Divides page into 2 columns
+with column_1:
+    ### Chart showing first day return performance over time with HSH and HSI
+        #add a box to select Chg on debut or -1 trading day as primary axis
+    ret = st.selectbox(
+        'Which return would you like to analyse?',
+          ['Chg on Debut', 'Return till Today'])
+    'You selected: ', ret
+    
+    if ret == 'Chg on Debut':
+        fdayret = df [['Listing Date▼','% Chg. on2Debut▼']]
+    else:
+        fdayret = df [['Listing Date▼','-1 Trading Days']]
+    
+    
+    # fdayret = df [['Listing Date▼','% Chg. on2Debut▼']]
+    if select_central == 'Average':
+        a = fdayret.groupby(['Listing Date▼']).mean()
+    
+    else:
+        a = fdayret.groupby(['Listing Date▼']).median()
+    
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+with column_2:
+        #add a box to select HSI or HSH as second axis
+    index = st.selectbox(
+        'Which index would you like to compare it to?',
+          ['Hang Seng Healthcare', 'Hang Seng Index'])
+    'You selected: ', index
 
 ### Download HSH and HSI data
 today = pd.to_datetime('today').strftime('%d/%m/%Y')
@@ -217,23 +232,170 @@ else:
                                             from_date= start,
                                             to_date= end)
 # Add traces
-fig.add_trace(go.Scatter(x= a.index, y= a['% Chg. on2Debut▼'], name="% Change on Debut"),
-    secondary_y=False)
+if ret == 'Chg on Debut':
+    fig.add_trace(go.Scatter(x= a.index, y= a['% Chg. on2Debut▼'], name= ret),
+        secondary_y=False)
+else:
+    # fdayret = df [['Listing Date▼','-1 HSI Days']]
+    fig.add_trace(go.Scatter(x= a.index, y= a['-1 Trading Days'], name= ret),
+        secondary_y=False)
 
 fig.add_trace(go.Scatter(x = df_index.index, y= df_index['Close'], name= index),
     secondary_y=True)
 # Add figure title
-fig.update_layout(title_text="Change on Debut with Index Level")
+fig.update_layout(title_text= ret + " with Index Level")
 
 # Set x-axis title
 fig.update_xaxes(title_text="Date")
 
 # Set y-axes titles
-fig.update_yaxes(title_text="% Change on Debut", secondary_y=False)
+fig.update_yaxes(title_text= ret, secondary_y=False)
 fig.update_yaxes(title_text="Index Level", secondary_y=True)
 fig.layout.yaxis.tickformat= ',%'
 # fig.show()
 st.plotly_chart(fig, use_container_width=True)
+
+#### trading performance's chart
+column_1, column_2 = st.columns(2) ### Divides page into 2 columns
+with column_1:
+    last_x = st.number_input('Number of most recent IPOs to display', value = 10)
+    last_x = int(last_x)
+    @st.cache(ttl = 1800)
+    def chart_7(df):
+        ### add chart showing last 10 IPOs and their detailed trading performances
+        ## gather the last 10 tickers and stock names and listing date and price
+        df_10 = df [-last_x:]
+        df_10 = df_10 [['Name', 'Code', 'Listing Price', 'Listing Date▼']]
+        ## Gather stock codes and tickers
+        df_yf = df_10 ['Code']
+        df_tickers = df_yf.tolist()
+        df_yf = yf.download(df_tickers)
+        df_yf = df_yf ['Close']
+        df_yf = df_yf [df_tickers] ## reorder the columns so it is in the order as inputted
+        
+        df_name = df_10 ['Name']
+        df_name = df_name.tolist()
+        df_yf.columns = df_name ## rename the column codes to column names
+        
+        df_yf8 = pd.DataFrame()
+        for name in df_name:
+            df_yf2 = df_yf [name]
+            df_yf2 = df_yf2.dropna()
+            
+            list_date = df_10.loc [df_10['Name'] == name]
+            list_date = list_date ['Listing Date▼'].values
+            list_date = list_date [0]
+            
+            df_yf2 = df_yf2.reset_index()
+            
+            df_yf2 = df_yf2[(df_yf2['Date'] >= list_date)]
+            
+            df_yf2 = df_yf2.set_index('Date')
+            df_yf2=df_yf2.iloc[:,0]
+            
+            price = df_10.loc [df_10['Name'] == name]
+            price = price ['Listing Price'].values
+            price = price [0]
+            
+            df_yf2 = df_yf2 / price -1 
+            date = df_yf2.index [0]
+            
+            date = date - dt.timedelta(days=1)
+            
+            ser = pd.Series(data= {date : 0}, index=[date], name = 'Stock Name')# df_yf2 = df_yf2.append()
+            
+            ser = ser.append(df_yf2)
+            
+            ser = pd.DataFrame(ser, columns = ['Close'])
+            ser ['Stock Name'] = name
+            
+            df_yf8 = df_yf8.append(ser)
+        df_yf8 = df_yf8.reset_index()
+        df_yf8 = df_yf8.rename({'index':'Date', 'Close':'Return'}, axis = 'columns')
+        markers = df_yf8 ['Date'].min() ### display of markers settings
+        markers = markers.date()
+        markers = markers > dt.date.today() - dt.timedelta(days=120) 
+        return df_yf8, markers
+    df_yf8, markers = chart_7(df)
+    fig = px.line(df_yf8, x= 'Date', y= 'Return', color = 'Stock Name', title= 'Last ' + str(last_x)+' '  + sector + ' IPOs Return Post IPO', markers = markers) 
+    fig.layout.yaxis.tickformat = ',.0%'
+    st.plotly_chart(fig)
+with column_2:
+    ### customizable chart for displaying various IPOs
+    names = st.text_input('Type in names of stock/stocks that have IPOd in the past 3 years. e.g TRANSCENTA-B, bioheart-b')    
+    @st.cache(ttl = 1800)
+    def chart_8(names):
+        names = names.split(',')
+        names = map(str.strip, names)
+        names = map(str.upper, names)
+        names = list(names)
+        
+        tickers = []
+        for name in names:
+            # name = 'SENSETIME-W'
+            ticker = df.loc [df['Name'] == name]
+            ticker = ticker ['Code'].values
+            ticker = ticker [0]
+            tickers.append(ticker)
+        
+        df_yf = yf.download(tickers) ['Close']
+        if len(tickers) ==1:
+            df_yf = df_yf.rename(names[0])
+        else:
+            df_yf = df_yf [tickers] ## reorder the columns so it is in the order as inputted
+        
+        df_yf.columns = names ## rename the column codes to column names
+        df_yf8 = pd.DataFrame()
+        for name in names:
+            if len(tickers) ==1:
+                df_yf2 = df_yf
+            else:
+                df_yf2 = df_yf [name] ## reorder the columns so it is in the order as inputted
+            
+            df_yf2 = df_yf2.dropna()
+            
+            list_date = df.loc [df['Name'] == name]
+            list_date = list_date ['Listing Date▼'].values
+            list_date = list_date [0]
+            
+            df_yf2 = df_yf2.reset_index()
+            
+            df_yf2 = df_yf2[(df_yf2['Date'] >= list_date)]
+            
+            df_yf2 = df_yf2.set_index('Date')
+            df_yf2=df_yf2.iloc[:,0]
+            
+            price = df.loc [df['Name'] == name]
+            price = price ['Listing Price'].values
+            price = price [0]
+            
+            df_yf2 = df_yf2 / price -1 
+            date = df_yf2.index [0]
+            
+            date = date - dt.timedelta(days=1)
+            
+            ser = pd.Series(data= {date : 0}, index=[date], name = 'Stock Name')# df_yf2 = df_yf2.append()
+            
+            ser = ser.append(df_yf2)
+            
+            ser = pd.DataFrame(ser, columns = ['Close'])
+            ser ['Stock Name'] = name
+            
+            df_yf8 = df_yf8.append(ser)
+        df_yf8 = df_yf8.reset_index()
+        df_yf8 = df_yf8.rename({'index':'Date', 'Close':'Return'}, axis = 'columns')
+        
+        markers = df_yf8 ['Date'].min() ### display of markers settings
+        markers = markers.date()
+        markers = markers > dt.date.today() - dt.timedelta(days=120)    
+        return df_yf8, markers        
+    if names == '':
+        pass
+    else: 
+        df_yf8, markers = chart_8(names)
+        fig = px.line(df_yf8, x= 'Date', y= 'Return', color = 'Stock Name', title= 'Selected '+sector + ' IPOs Return Post IPO', markers = markers)        
+        fig.layout.yaxis.tickformat = ',.0%'
+        st.plotly_chart(fig)
 
 ### Charts for Trading Day return by benchmark and by industry
 ###### to better display the data, 480 trading days is used as the return till today
@@ -321,8 +483,6 @@ with column_2:### trading day performance by industry
     fig = px.line(comps1, x= 'Trading Days since IPO', y= 'return', color = 'Industry', title= select_central + ' Trading Day Return Post IPO by Industry', markers = True)
     fig.layout.yaxis.tickformat = ',.0%'
     st.plotly_chart(fig)
-
-
 
 ### display raw data below
 st.header ('Data Used for Graph')
