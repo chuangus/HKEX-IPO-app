@@ -8,4 +8,3 @@ investpy
 openpyxl
 yfinance
 datetime
-multitasking==0.0.9
