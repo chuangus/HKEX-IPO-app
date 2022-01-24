@@ -1,5 +1,6 @@
 pandas
 yfinance
+multitasking==0.0.9
 investpy
 numpy
 xlsxwriter
