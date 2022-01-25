@@ -43,6 +43,6 @@ Change on debut is the (1st day close price) / (offer price) -1. We use simple r
 
 **1. Normal Distribution Plot and Rugplot for First Day Return**
 
-This displays a histogram with a Kernel Density Estimation drawn as a line on top. The data tends to have a far right tail reflecting the IPO underpricing. The bottom rugplot plots every datapoint that was used in the chart above. It can be viewed by hovering your mouse over each tick. 
+This displays a histogram with a Kernel Density Estimation (KDE) drawn as a line on top. The KDE estimates the shape of the distribution. The bottom rugplot plots every datapoint that was used in the chart above. It can be viewed by hovering your mouse over each tick. 
 
 **2. Industry Deal Count and Average First Day Return**
