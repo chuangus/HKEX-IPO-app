@@ -274,7 +274,7 @@ df_yfret = df_yfret.merge(df_HSHret, on = ['Code'], how = 'left')
 df_end = df_main.iloc [:,-3:] ##!! Key piece of code!!!
 df_end = df_end.reset_index(drop=True)
 
-df_main = df_main.drop(df_main.columns[26:], axis = 1)
+df_main = df_main.drop(df_main.columns[27:], axis = 1)
 
 df_main = df_main.merge(df_yfret, on = ['Code'], how = 'left')
 df_main = pd.concat ([df_main, df_end], axis=1)
