@@ -28,8 +28,17 @@ df = df.loc[df['Count as IPO?'] == 1] ### Filters rows where it is actually an I
 df['Listing Date▼']= pd.to_datetime(df['Listing Date▼'])### converts listing date to datetime variable
 
 ### create dropdown selector
-column_1, column_2 = st.columns(2) ### Divides page into 2 columns
-with column_1:### Chart of distribution and Lead 1 Chart
+column_1, column_2, column_3 = st.columns(3) ### Divides page into 2 columns
+with column_1:
+    language = st.selectbox(
+        'Which language should the company names be?',
+          ['English', '中文'])
+    'You selected: ', language
+    if language =='中文':
+        df['Name'] = df['Name CN']
+    else:
+        pass
+with column_2:### Chart of distribution and Lead 1 Chart
     sectors = df['Sector']
     sectors = sectors.tolist()
     sectors = list(dict.fromkeys(sectors))
@@ -46,7 +55,7 @@ with column_1:### Chart of distribution and Lead 1 Chart
     else:
         df = df.loc[df['Sector'] == sector]
 
-with column_2:
+with column_3:
     ### Dropdown box for median or mean
     central_tendancy = ['Average', 'Median']
     select_central = st.selectbox(
