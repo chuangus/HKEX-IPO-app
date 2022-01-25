@@ -22,7 +22,7 @@ st.set_page_config(layout="wide")
 st.title('HKEX IPO Performance')
 st.write ('All assumptions and further info can be found in [documentation](https://github.com/epiphronquant/HKEX-IPO-app)')
 
-df = pd.read_excel(r'RawData.xlsx', header = 0, engine = 'openpyxl', parse_dates = False)
+df = pd.read_excel(r'RawData.xlsx')
 df_export = df
 df = df.loc[df['Count as IPO?'] == 1] ### Filters rows where it is actually an IPO
 df['Listing Date▼']= pd.to_datetime(df['Listing Date▼'])### converts listing date to datetime variable
@@ -106,7 +106,7 @@ with column_1:### Chart of distribution and Lead 1 Chart
     names = [names]
     
     fig = ff.create_distplot(x1, label, rug_text = names, bin_size = .2)
-    fig.update_layout(  xaxis_tickformat = '%',title={'text': "Normal Distribution Plot and Rugplot for First Day Return"})
+    fig.update_layout(  xaxis_tickformat = ',.2%',title={'text': "Normal Distribution Plot and Rugplot for First Day Return"})
     st.plotly_chart(fig)    
 
     #### Lead 1 Chart
@@ -260,7 +260,7 @@ fig.update_xaxes(title_text="Date")
 # Set y-axes titles
 fig.update_yaxes(title_text= ret, secondary_y=False)
 fig.update_yaxes(title_text="Index Level", secondary_y=True)
-fig.layout.yaxis.tickformat= ',%'
+fig.layout.yaxis.tickformat= ',.2%'
 # fig.show()
 st.plotly_chart(fig, use_container_width=True)
 
