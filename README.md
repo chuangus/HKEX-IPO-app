@@ -40,4 +40,6 @@ Change on debut is the (1st day close price) / (offer price) -1. We use simple r
 ![image](https://user-images.githubusercontent.com/91112822/148018543-62c689b0-b559-40f1-907c-ab1bfeb05427.png)
 
 **Chart by Chart Explanation**
-**1. 
+
+**1. Normal Distribution Plot and Rugplot for First Day Return**
+     
