@@ -55,3 +55,18 @@ Lead 1 refers to the first sponsor name on the IPO Prospectus. Lead 2 refers to 
 
 This displays the change on debut/return till today based on the IPO date in blue and the Hang Seng Healthcare/HSI level in red.
 
+**7. Last _ _sector_ IPOs Return Post IPO**
+
+This chart plots return measured by (day close price/IPO price -1) from the day of IPO. We assume a return of 0% on the day before IPO.
+
+**8. Selected _sector_ IPOs Return Post IPO**
+
+This is a customizable where you input the name of stocks that have IPO'd and it will generate a chart for you like 7. 
+
+**9. Average Trading Day Return Post IPO by Benchmark**
+
+This chart takes the average/median return of IPO stocks, HSI, and HSH returns of days post IPO of all stocks within the selected timeframe. 480 trading days is only used as a placeholder for the return to today. Day 0 is the day of IPO return. 
+
+**10. Average Trading Day Return Post IPO by Industry**
+
+This chart takes the average/median return of each industry and lots the return based on trading days post IPO. 0 Trading days indicates first day return and 480 trading days is again used as a placeholder for the return to today.
