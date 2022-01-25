@@ -41,6 +41,26 @@ df_sponsor = df_sponsor.drop(columns = ['Name/Code', 'List Date', 'Acc. % Chg.�
 df_new = df_IPO.merge(df_sponsor, on = ['Code'], how = 'left')
 df_new = df_new.rename( columns={'Industry':'AA Stocks Industry'})
 
+### gather Chinese name data
+page="http://www.aastocks.com/sc/stocks/market/ipo/listedipo.aspx?s=3&o=0&page=" + str (1)
+
+dfs = pd.read_html(page)
+df = dfs [19]
+df = df [:-3]
+df = df.iloc [:,1:]
+name = df.columns [0]
+df2 = df [name]
+df2 = df2.map(lambda x: x.rstrip('跌穿上市价'))
+df_code = df2.map(lambda x: x[-7:])
+df_name =  df2.map(lambda x: x[:-8])
+
+df [name] = df_code
+df.insert(0, 'Name CN', df_name)
+df = df.rename(columns = {name:'Code'})
+df = df[~df['Code'].isin(df_main['Code'])]
+df = df.iloc [:,0:2]
+df_new = df.merge(df_new, on = ['Code'], how = 'left') #merge data
+
 def cleanpercent (df_main, column):
     df_main[column]= df_main[column].astype (str)
     df_main[column]= df_main[column].str.replace('%', '', regex=True)
