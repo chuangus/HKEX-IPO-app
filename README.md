@@ -43,6 +43,15 @@ Change on debut is the (1st day close price) / (offer price) -1. We use simple r
 
 **1. Normal Distribution Plot and Rugplot for First Day Return**
 
-This displays a histogram with a Kernel Density Estimation (KDE) drawn as a line on top. The KDE estimates the shape of the distribution. The bottom rugplot plots every datapoint that was used in the chart above. It can be viewed by hovering your mouse over each tick. 
+This displays a histogram of the mean/median first day return with a Kernel Density Estimation (KDE) drawn as a line on top. The KDE estimates the shape of the distribution. The bottom rugplot plots every datapoint that was used in the chart above. It can be viewed by hovering your mouse over each tick. 
 
-**2. Industry Deal Count and Average First Day Return**
+**2-5. ____ Deal Count and ____ First Day Return**
+
+This displays with the blue bar the deal counts per a sector and the red bar the mean/median first return given conditions on the industry or underwriter.
+
+Lead 1 refers to the first sponsor name on the IPO Prospectus. Lead 2 refers to the second sponsor name on the IPO Prospectus.
+
+**6. Change on Debut/ Return Till Today with Index Level**
+
+This displays the change on debut/return till today based on the IPO date in blue and the Hang Seng Healthcare/HSI level in red.
+
