@@ -1,9 +1,9 @@
 name: scraper-ipo-updater
 
-#on:
-  #schedule:
-    #- cron: '0 0 * * SUN' # runs at 00:00 UTC (8am HK time) every Sunday
-on: [workflow_dispatch] ### manual update button
+on:
+  schedule:
+    - cron: '0 0 * * SUN' # runs at 00:00 UTC (8am HK time) every Sunday
+#on: [workflow_dispatch] ### manual update button
 
 jobs:
   build:
