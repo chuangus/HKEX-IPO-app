@@ -18,10 +18,10 @@ This app visualizes HKEX IPO data from 2018 onwards for healthcare stocks and 20
 
 **Data Sources**
 
-1. _AA Stocks_: http://www.aastocks.com/en/stocks/market/ipo/mainpage.aspx set of pages from January 1st, 2019 onwards. Columns A-E and I-Z.
-2. _HKEX_: From January 1st, 2018 to December 31st, 2018, healthcare IPOs was added in manually using their prospectuses. Columns A-E and I-Z.
+1. _AA Stocks_: http://www.aastocks.com/en/stocks/market/ipo/mainpage.aspx set of pages from January 1st, 2019 onwards. We use their first day return, sponsor data, and listing price among other things. Columns A-E and I-Z.
+2. _HKEX_: From January 1st, 2018 to December 31st, 2018, healthcare IPOs was added in manually using their prospectuses. Columns A-E and I-Z. 
 3. _Investing.com_: Hang Seng Healthcare Index Data. Columns AR-AY.
-4. _Yahoo Finance_: Columns F-H and AA - AQ.
+4. _Yahoo Finance_: Industry, sector, trading day count, and price performance past the first day IPO. Columns F-H and AA - AQ.
 
 **Description**
 
@@ -47,7 +47,7 @@ This displays a histogram of the mean/median first day return with a Kernel Dens
 
 **2-5. ____ Deal Count and ____ First Day Return**
 
-This displays with the blue bar the deal counts per a sector and the red bar the mean/median first return given conditions on the industry or underwriter.
+This displays with the blue bar the deal counts per a sector/sponsor and the red bar the mean/median first return given conditions on the industry or sponsor.
 
 Lead 1 refers to the first sponsor name on the IPO Prospectus. Lead 2 refers to the second sponsor name on the IPO Prospectus.
 
