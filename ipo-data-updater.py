@@ -124,7 +124,11 @@ def split_name(df, df_column):
     df [df_column] = df2.iloc [:,0]
     df = df.rename(columns = {df_column:'Lower ' + df_column})
     
-    df.insert(df.columns.get_loc('Lower ' + df_column) +1, 'Upper ' + df_column, value = df2.iloc [:,1])
+    try:
+        df.insert(df.columns.get_loc('Lower ' + df_column) +1, 'Upper ' + df_column, value = df2.iloc [:,1])
+    except IndexError: ##catches error where there is no upper for market cap and offer price
+        df2 ['Upper ' + df_column] = np.nan
+        df.insert(df.columns.get_loc('Lower ' + df_column) +1, 'Upper ' + df_column, value = df2.iloc [:,1])
     return df
 
 df_new = split_name(df_new, 'Market Cap(B)')
